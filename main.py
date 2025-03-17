@@ -99,7 +99,7 @@ def main():
                 add_to_history("assistant", response_text)
                 
                 # Force a rerun to update the display
-                st.experimental_rerun()
+                st.rerun()
                 
         except Exception as e:
             st.error(f"Error: {str(e)}")
@@ -108,7 +108,7 @@ def main():
     # Add option to clear conversation
     if st.button("Clear Conversation"):
         st.session_state.conversation_history = []
-        st.experimental_rerun()
+        st.rerun()
 
     # Optional: Save conversation to file
     if st.button("Save Conversation"):
