@@ -110,11 +110,18 @@ def main():
         st.session_state.conversation_history = []
         st.rerun()
 
-    # Optional: Save conversation to file
-    if st.button("Save Conversation"):
-        with open("conversation.json", "w") as f:
-            json.dump(st.session_state.conversation_history, f, indent=2)
-        st.success("Conversation saved to conversation.json")
+    # Save conversation as downloadable file
+    if st.button("Download Conversation"):
+        # Convert conversation history to JSON string
+        json_str = json.dumps(st.session_state.conversation_history, indent=2)
+        
+        # Create a download button for the JSON file
+        st.download_button(
+            label="Download JSON",
+            data=json_str,
+            file_name="conversation.json",
+            mime="application/json"
+        )
 
 if __name__ == "__main__":
     main()
