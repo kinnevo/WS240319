@@ -43,7 +43,9 @@ def start_new_session():
             return None
     except Exception as e:
         st.error(f"Error creating session: {str(e)}")
-        return Noneimport requests
+        return None
+    
+import requests
 import streamlit as st
 from dotenv import load_dotenv
 import os
