@@ -23,6 +23,11 @@ def start_new_session():
     try:
         # Make the request to create a session
         response = requests.post(session_url, json=payload, headers=headers)
+        st.error(f"session_url: {session_url}")
+        st.error(f"payload: {payload}")
+        st.error(f"headers: {headers}")
+        st.error(f"response: {response}")
+
         
         if response.status_code == 200 or response.status_code == 201:
             session_data = response.json()
