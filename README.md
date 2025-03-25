@@ -1,3 +1,3 @@
 # WS240319
 
-new version with memory
+a 5 users workspace for FastInnovation
