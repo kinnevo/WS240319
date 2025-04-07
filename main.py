@@ -36,7 +36,7 @@ def start_new_session():
     try:
         # Make the request to create a session
         response = requests.post(session_url, json=payload, headers=headers)
-        
+        """
         # Debug information
         st.error(f"Request URL: {session_url}")
         st.error(f"Request Method: GET")
@@ -44,6 +44,7 @@ def start_new_session():
         st.error(f"Request Payload: {payload}")
         st.error(f"Response Status Code: {response.status_code}")
         st.error(f"Response Content Type: {response.headers.get('content-type', 'Not specified')}")
+        """
         
         if response.status_code != 200:
             st.error(f"API Error: Received status code {response.status_code}")
@@ -51,10 +52,11 @@ def start_new_session():
             return None
             
         try:
-            st.error(f"ggggg")            
             response_data = response.json()
+            """
             st.error(f"Response JSON: {response_data}")
-            
+            """
+
             if response.status_code == 200 or response.status_code == 201:
                 session_data = response_data
                 session_id = session_data.get('session_id')
@@ -381,7 +383,7 @@ def main():
         with session_col1:
             current_session = "None"
             if st.session_state.current_session_id:
-                current_session = f"{st.session_state.current_session_id[:8]}..."
+                current_session = f"{st.session_state.current_session_id[:20]}..."
             
             st.info(f"Current Session: {current_session}")
         
@@ -395,7 +397,7 @@ def main():
                         st.rerun()
         
         # Add this just before the agent selection
-        st.write("Current agents state:", st.session_state.agents)  # Debug line
+        #st.write("Current agents state:", st.session_state.agents)  # Debug line
         #st.write("Number of agents:", len(st.session_state.agents))  # Debug line
         # st.write("Agent keys:", list(st.session_state.agents.keys()))  # Debug line
 
