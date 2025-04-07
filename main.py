@@ -32,32 +32,47 @@ def start_new_session():
     try:
         # Make the request to create a session
         response = requests.get(session_url, json=payload, headers=headers)
-        st.error(f"session_url: {session_url}")
-        st.error(f"payload: {payload}")
-        st.error(f"headers: {headers}")
-        st.error(f"response: {response}")
-        st.error(f"response.text: {response.text}")
-        st.error(f"response.json(): {response.json()}")
-        st.error(f"response.status_code: {response.status_code}")
-        st.error(f"response.headers: {response.headers}")
-
         
-        if response.status_code == 200 or response.status_code == 201:
-            session_data = response.json()
-            session_id = session_data.get('session_id')
+        # Debug information
+        st.error(f"Request URL: {session_url}")
+        st.error(f"Request Method: GET")
+        st.error(f"Request Headers: {headers}")
+        st.error(f"Request Payload: {payload}")
+        st.error(f"Response Status Code: {response.status_code}")
+        st.error(f"Response Content Type: {response.headers.get('content-type', 'Not specified')}")
+        
+        if response.status_code != 200:
+            st.error(f"API Error: Received status code {response.status_code}")
+            st.error(f"Response Text: {response.text[:500]}...")  # Show first 500 chars of response
+            return None
             
-            # Store session information
-            st.session_state.sessions[session_id] = {
-                "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "conversation": [],
-                "last_agent": None,
-                "agents_used": set()
-            }
+        try:
+            response_data = response.json()
+            st.error(f"Response JSON: {response_data}")
             
-            return session_id
-        else:
-            st.error(f"Failed to create session: {response.status_code}")
-            st.error(response.text)
+            if response.status_code == 200 or response.status_code == 201:
+                session_data = response_data
+                session_id = session_data.get('session_id')
+                
+                # Store session information
+                st.session_state.sessions[session_id] = {
+                    "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "conversation": [],
+                    "last_agent": None,
+                    "agents_used": set()
+                }
+                
+                return session_id
+            else:
+                st.error(f"Failed to create session: {response.status_code}")
+                st.error(f"Response: {response_data}")
+                return None
+        except json.JSONDecodeError as e:
+            st.error(f"Error parsing response as JSON: {str(e)}")
+            st.error(f"Raw response content: {response.text[:500]}...")  # Show first 500 chars
+            return None
+        except Exception as e:
+            st.error(f"Unexpected error creating session: {str(e)}")
             return None
     except Exception as e:
         st.error(f"Error creating session: {str(e)}")
