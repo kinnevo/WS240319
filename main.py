@@ -369,6 +369,10 @@ def main():
                         st.success(f"Created new session: {session_id[:8]}...")
                         st.rerun()
         
+        # Add this just before the agent selection
+        st.write("Debug - Number of agents:", len(st.session_state.agents))
+        st.write("Debug - Agent keys:", list(st.session_state.agents.keys()))
+
         # Agent selection
         agent_options = list(st.session_state.agents.keys())
         selected_agent = st.selectbox("Select Agent", agent_options)
