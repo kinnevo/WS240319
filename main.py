@@ -16,7 +16,7 @@ def start_new_session():
         str: The session ID if successful, None otherwise
     """
     # Session creation endpoint
-    session_url = f"{BASE_API_URL}/api/v1/run/{FLOW_ID}"
+    session_url = f"{BASE_API_URL}/api/v1/run/{ENDPOINT}"
     
     # Generate a unique session ID
     session_id = f"user_{uuid.uuid4()}"
@@ -88,7 +88,7 @@ def start_new_session():
 load_dotenv()
 
 # LangFlow connection settings
-BASE_API_URL = "http://34.59.108.214:7860/"
+BASE_API_URL = "http://34.59.108.214:7860"
 FLOW_ID = "4d3b8a75-21a4-4ce7-b41d-2f70aa6e3fdd"
 APPLICATION_TOKEN = os.environ.get("OPENAI_API_KEY")
 ENDPOINT = "4d3b8a75-21a4-4ce7-b41d-2f70aa6e3fdd"  # The endpoint name of the flow
