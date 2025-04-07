@@ -17,9 +17,12 @@ def start_new_session():
     # Session creation endpoint
     session_url = f"{BASE_API_URL}/api/v1/{FLOW_ID}"
     
+    # Generate a unique session ID
+    session_id = f"user_{uuid.uuid4()}"
+
     # Payload for creating a new session
     payload = {
-        "flow_id": FLOW_ID,
+        "session_id": session_id,
         "inputs": {}  # Initial inputs if any
     }
     
@@ -391,8 +394,8 @@ def main():
         
         # Add this just before the agent selection
         st.write("Current agents state:", st.session_state.agents)  # Debug line
-        st.write("Number of agents:", len(st.session_state.agents))  # Debug line
-        st.write("Agent keys:", list(st.session_state.agents.keys()))  # Debug line
+        #st.write("Number of agents:", len(st.session_state.agents))  # Debug line
+        # st.write("Agent keys:", list(st.session_state.agents.keys()))  # Debug line
 
         # Agent selection
         agent_options = list(st.session_state.agents.keys())
