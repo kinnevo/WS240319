@@ -239,7 +239,7 @@ def display_sessions_dashboard():
     for session_id, session_info in st.session_state.sessions.items():
         session_data.append({
             #"Session ID": session_id[:8] + "...",  # Truncate for display
-            "Session ID": session_id,
+            "Session ID": session_id[0:20] + "...",
             "Created": session_info["created_at"],
             "Messages": len(session_info["conversation"]),
             "Last Agent": session_info["last_agent"] or "None",
