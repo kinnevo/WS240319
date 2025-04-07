@@ -77,7 +77,14 @@ if 'agents' not in st.session_state:
     st.session_state.agents = {
         "Agent_1": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
         "Agent_2": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
-        "Agent_3": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False}
+        "Agent_3": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_4": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_5": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_6": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_7": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_8": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_9": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_10": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
     }
 
 # Initialize sessions tracking
