@@ -36,6 +36,10 @@ def start_new_session():
         st.error(f"payload: {payload}")
         st.error(f"headers: {headers}")
         st.error(f"response: {response}")
+        st.error(f"response.text: {response.text}")
+        st.error(f"response.json(): {response.json()}")
+        st.error(f"response.status_code: {response.status_code}")
+        st.error(f"response.headers: {response.headers}")
 
         
         if response.status_code == 200 or response.status_code == 201:
