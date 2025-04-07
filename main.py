@@ -118,7 +118,8 @@ def run_flow(message: str, agent_name: str = "Agent_1", history: list = None, se
         "input_value": message,
         "output_type": "chat",
         "input_type": "chat",
-        "agent": agent_name  # Pass the agent name to LangFlow
+        "agent": agent_name,  # Pass the agent name to LangFlow
+        "user_id": agent_name # Add user ID to the payload
     }
     
     # Include session ID if provided
