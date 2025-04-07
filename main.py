@@ -36,15 +36,13 @@ def start_new_session():
     try:
         # Make the request to create a session
         response = requests.post(session_url, json=payload, headers=headers)
-        """
-        # Debug information
-        st.error(f"Request URL: {session_url}")
-        st.error(f"Request Method: GET")
-        st.error(f"Request Headers: {headers}")
-        st.error(f"Request Payload: {payload}")
-        st.error(f"Response Status Code: {response.status_code}")
-        st.error(f"Response Content Type: {response.headers.get('content-type', 'Not specified')}")
-        """
+        # Debug information (commented out)
+        # st.error(f"Request URL: {session_url}")
+        # st.error(f"Request Method: GET")
+        # st.error(f"Request Headers: {headers}")
+        # st.error(f"Request Payload: {payload}")
+        # st.error(f"Response Status Code: {response.status_code}")
+        # st.error(f"Response Content Type: {response.headers.get('content-type', 'Not specified')}")
         
         if response.status_code != 200:
             st.error(f"API Error: Received status code {response.status_code}")
@@ -53,9 +51,7 @@ def start_new_session():
             
         try:
             response_data = response.json()
-            """
-            st.error(f"Response JSON: {response_data}")
-            """
+            # st.error(f"Response JSON: {response_data}")
 
             if response.status_code == 200 or response.status_code == 201:
                 session_data = response_data
@@ -225,8 +221,7 @@ def display_conversation(session_id: str = None):
     
     for message in history:
         if message["role"] == "user":
-            st.markdown(f"<p style='color: orange; font-size: 16px;'>**You:** {message['content']}"</p>", unsafe_allow_html=True)
-            #st.markdown(f"**You:** {message['content']}", unsafe_allow_html=True)
+            st.markdown(f"<p style='color: orange; font-size: 16px;'>You: {message['content']}</p>", unsafe_allow_html=True)
         else:
             agent_info = f" (via {message.get('agent', 'Unknown Agent')})" if "agent" in message else ""
             st.markdown(f"**Assistant{agent_info}:** {message['content']}")
