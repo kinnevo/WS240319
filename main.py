@@ -16,7 +16,7 @@ def start_new_session():
         str: The session ID if successful, None otherwise
     """
     # Session creation endpoint
-    session_url = f"{BASE_API_URL}/api/v1/{FLOW_ID}"
+    session_url = f"{BASE_API_URL}/api/v1/run/{FLOW_ID}"
     
     # Generate a unique session ID
     session_id = f"user_{uuid.uuid4()}"
@@ -51,6 +51,7 @@ def start_new_session():
             return None
             
         try:
+            st.error(f"ggggg")            
             response_data = response.json()
             st.error(f"Response JSON: {response_data}")
             
