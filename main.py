@@ -35,7 +35,7 @@ def start_new_session():
     
     try:
         # Make the request to create a session
-        response = requests.get(session_url, json=payload, headers=headers)
+        response = requests.post(session_url, json=payload, headers=headers)
         
         # Debug information
         st.error(f"Request URL: {session_url}")
