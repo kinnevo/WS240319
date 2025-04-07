@@ -1,3 +1,12 @@
+import requests
+import streamlit as st
+from dotenv import load_dotenv
+import os
+import json
+import pandas as pd
+import time
+from datetime import datetime
+
 def start_new_session():
     """
     Start a new session with LangFlow.
@@ -50,14 +59,6 @@ def start_new_session():
         st.error(f"Error creating session: {str(e)}")
         return None
     
-import requests
-import streamlit as st
-from dotenv import load_dotenv
-import os
-import json
-import pandas as pd
-import time
-from datetime import datetime
 
 # Load environment variables
 load_dotenv()
@@ -84,7 +85,7 @@ if 'agents' not in st.session_state:
         "Agent_7": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
         "Agent_8": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
         "Agent_9": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
-        "Agent_10": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False},
+        "Agent_10": {"status": "Idle", "last_active": None, "explorations_completed": 0, "full_exploration": False}
     }
 
 # Initialize sessions tracking
@@ -370,8 +371,9 @@ def main():
                         st.rerun()
         
         # Add this just before the agent selection
-        st.write("Debug - Number of agents:", len(st.session_state.agents))
-        st.write("Debug - Agent keys:", list(st.session_state.agents.keys()))
+        st.write("Current agents state:", st.session_state.agents)  # Debug line
+        st.write("Number of agents:", len(st.session_state.agents))  # Debug line
+        st.write("Agent keys:", list(st.session_state.agents.keys()))  # Debug line
 
         # Agent selection
         agent_options = list(st.session_state.agents.keys())
