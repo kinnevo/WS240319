@@ -6,7 +6,7 @@ def start_new_session():
         str: The session ID if successful, None otherwise
     """
     # Session creation endpoint
-    session_url = f"{BASE_API_URL}/api/v1/sessions"
+    session_url = f"{BASE_API_URL}/api/v1/{FLOW_ID}"
     
     # Payload for creating a new session
     payload = {
@@ -22,7 +22,7 @@ def start_new_session():
     
     try:
         # Make the request to create a session
-        response = requests.post(session_url, json=payload, headers=headers)
+        response = requests.get(session_url, json=payload, headers=headers)
         st.error(f"session_url: {session_url}")
         st.error(f"payload: {payload}")
         st.error(f"headers: {headers}")
@@ -223,17 +223,17 @@ def display_sessions_dashboard():
             "Is Current": "Yes" if session_id == st.session_state.current_session_id else "No"
         })
     
-    df = pd.DataFrame(session_data)
+    df: pd.DataFrame = pd.DataFrame(session_data)
     
     # Apply styling for current session
-    def highlight_current(val):
+    def highlight_current(val: str) -> str:
         if val == "Yes":
             return "background-color: #4CAF50"  # Green
         else:
             return ""
     
     # Display the styled DataFrame
-    st.dataframe(df.style.applymap(highlight_current, subset=["Is Current"]))
+    st.dataframe(df.style.apply(lambda x: pd.Series(['background-color: #4CAF50' if v == "Yes" else '' for v in x]), subset=["Is Current"]))
     
     # Session management
     col1, col2 = st.columns(2)
@@ -300,10 +300,10 @@ def display_agent_dashboard():
             "Full Exploration": "Yes" if agent_info["full_exploration"] else "No"
         })
     
-    df = pd.DataFrame(agent_data)
+    df: pd.DataFrame = pd.DataFrame(agent_data)
     
     # Apply styling based on status
-    def color_status(val):
+    def color_status(val: str) -> str:
         if val == "Active":
             return "background-color: #FFEB3B"  # Yellow
         elif val == "Completed":
@@ -314,15 +314,15 @@ def display_agent_dashboard():
             return ""
     
     # Apply styling based on full exploration
-    def color_exploration(val):
+    def color_exploration(val: str) -> str:
         if val == "Yes":
             return "background-color: #4CAF50"  # Green
         else:
             return ""
     
     # Display the styled DataFrame
-    st.dataframe(df.style.applymap(color_status, subset=["Status"])
-                      .applymap(color_exploration, subset=["Full Exploration"]))
+    st.dataframe(df.style.apply(lambda x: pd.Series(['background-color: #FFEB3B' if v == "Active" else 'background-color: #4CAF50' if v == "Completed" else 'background-color: #F44336' if v == "Failed" else '' for v in x]), subset=["Status"])
+                      .apply(lambda x: pd.Series(['background-color: #4CAF50' if v == "Yes" else '' for v in x]), subset=["Full Exploration"]))
     
     # Add metrics for quick overview
     col1, col2, col3 = st.columns(3)
