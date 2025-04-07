@@ -6,6 +6,7 @@ import json
 import pandas as pd
 import time
 from datetime import datetime
+import uuid
 
 def start_new_session():
     """
