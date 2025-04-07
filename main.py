@@ -225,7 +225,8 @@ def display_conversation(session_id: str = None):
     
     for message in history:
         if message["role"] == "user":
-            st.markdown(f"**You:** {message['content']}")
+            st.markdown(f"<p style='color: orange; font-size: 16px;'>**You:** {message['content']}"</p>", unsafe_allow_html=True)
+            #st.markdown(f"**You:** {message['content']}", unsafe_allow_html=True)
         else:
             agent_info = f" (via {message.get('agent', 'Unknown Agent')})" if "agent" in message else ""
             st.markdown(f"**Assistant{agent_info}:** {message['content']}")
@@ -242,7 +243,8 @@ def display_sessions_dashboard():
     session_data = []
     for session_id, session_info in st.session_state.sessions.items():
         session_data.append({
-            "Session ID": session_id[:8] + "...",  # Truncate for display
+            #"Session ID": session_id[:8] + "...",  # Truncate for display
+            "Session ID": session_id[],
             "Created": session_info["created_at"],
             "Messages": len(session_info["conversation"]),
             "Last Agent": session_info["last_agent"] or "None",
@@ -383,7 +385,8 @@ def main():
         with session_col1:
             current_session = "None"
             if st.session_state.current_session_id:
-                current_session = f"{st.session_state.current_session_id[:20]}..."
+                current_session = f"{st.session_state.current_session_id}"
+                #current_session = f"{st.session_state.current_session_id[:20]}..."
             
             st.info(f"Current Session: {current_session}")
         
@@ -399,7 +402,7 @@ def main():
         # Add this just before the agent selection
         #st.write("Current agents state:", st.session_state.agents)  # Debug line
         #st.write("Number of agents:", len(st.session_state.agents))  # Debug line
-        # st.write("Agent keys:", list(st.session_state.agents.keys()))  # Debug line
+        #st.write("Agent keys:", list(st.session_state.agents.keys()))  # Debug line
 
         # Agent selection
         agent_options = list(st.session_state.agents.keys())
